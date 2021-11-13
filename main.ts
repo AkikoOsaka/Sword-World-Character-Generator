@@ -31,7 +31,6 @@ namespace SwordWorld {
         [id: number]: BackgroundTable;
     }
 
-
     export interface Race {
         name: string;
         raceAbilities: FeatTable;
@@ -39,30 +38,42 @@ namespace SwordWorld {
         language: string;
         classRestriction: string;
     }  
+    export interface Weapon {
+        name: string,
+        type: string,
+        stance: string,
+        strReq: number,
+        acc: number,
+        power: number,
+        cRate: number,
+        price: number
+    }
+    export interface item {
+        name: string,
+        cost: number
+    }
+    export interface accessories {
+        name: string,
+        slot: string,
+        price: number
+    }
+    export interface armor {
+        name: string,
+        strReq: number,
+        evasion: number,
+        defense: number,
+        price: number
+    }
+    export interface potion {
+        name: string,
+        power: number,
+        price: number
+    }
 
+    //TODO: this is still a holdover from Kagegami High. SW2.0 Implementation needed
     function getAttribute(): number {
         return Math.round((RollD6() + RollD6()) / 2);
     }
-
-    // function getTrait(): Trait {
-    //     let roll: number = RollD66();
-    //     let special: Special;
-    //     let trait: Trait;
-    //     while (special == null) {
-    //         let id: string = <string>roll.toString();
-    //         special = tableSpecial[id];
-    //         if (special == null)
-    //             roll -= 1;
-    //     }
-    //     roll = RollD6();
-    //     while (trait == null) {
-    //         let id: string = <string>roll.toString();
-    //         trait = special[id];
-    //         if (trait == null)
-    //             roll -= 1;
-    //     }
-    //     return trait;
-    // }
 
     function getRace(): Race {
         let roll: number = Math.floor((Math.random() * raceMax) + 1);
