@@ -1,132 +1,95 @@
-namespace kagegami {
-    export interface Trait {
+namespace SwordWorld {
+    let raceMax:number = 11;
+
+    export interface Table {
+        [id: number]: any;
+    }    
+
+    export interface Feat {
         name: string;
         text: string;
     }
 
-    export interface Special {
-        [id: number]: Trait;
+    export interface FeatTable {
+        [id: number]: Feat;
     }
 
-    export interface Table {
-        [id: number]: any;
+    export interface Background {
+        name: string;
+        startingClass: string;
+        skill: number;
+        body: number;
+        mind: number;
+        exp: number;
     }
+
+    export interface BackgroundTable {
+        [id: number]: Background;
+    }
+
+    export interface BackgroundTables {
+        [id: number]: BackgroundTable;
+    }
+
+
+    export interface Race {
+        name: string;
+        raceAbilities: FeatTable;
+        backgroundTables: BackgroundTables;
+        language: string;
+        classRestriction: string;
+    }  
 
     function getAttribute(): number {
-        return Math.round((d6() + d6()) / 2);
+        return Math.round((RollD6() + RollD6()) / 2);
     }
 
-    function getTrait(): Trait {
-        let roll: number = d66();
-        let special: Special;
-        let trait: Trait;
-        while (special == null) {
-            let id: string = <string>roll.toString();
-            special = tableSpecial[id];
-            if (special == null)
-                roll -= 1;
-        }
-        roll = d6();
-        while (trait == null) {
-            let id: string = <string>roll.toString();
-            trait = special[id];
-            if (trait == null)
-                roll -= 1;
-        }
-        return trait;
-    }
+    // function getTrait(): Trait {
+    //     let roll: number = RollD66();
+    //     let special: Special;
+    //     let trait: Trait;
+    //     while (special == null) {
+    //         let id: string = <string>roll.toString();
+    //         special = tableSpecial[id];
+    //         if (special == null)
+    //             roll -= 1;
+    //     }
+    //     roll = RollD6();
+    //     while (trait == null) {
+    //         let id: string = <string>roll.toString();
+    //         trait = special[id];
+    //         if (trait == null)
+    //             roll -= 1;
+    //     }
+    //     return trait;
+    // }
 
-    function getHobby(): string {
-        let roll: number = d66();
-        let hobby: string;
-        while (hobby == null) {
-            let id: string = <string>roll.toString();
-            hobby = tableHobby[id];
-            if (hobby == null)
-                roll -= 1;
-        }
-        return hobby;
+    function getRace(): Race {
+        let roll: number = Math.floor((Math.random() * raceMax) + 1);
+        let race: Race = Races[roll]
+        return race;
     }
+    function getRaceBackground():Background {
+        let backgroundTables: BackgroundTables = race["backgroundTables"];
+        let BackgroundTable: BackgroundTable = backgroundTables[Roll1D2()];
 
-    function getExplosion(): string {
-        let roll: number = d66();
-        let explosion: string;
-        while (explosion == null) {
-            let id: string = <string>roll.toString();
-            explosion = tableExplosion[id];
-            if (explosion == null)
-                roll -= 1;
-        }
-        return explosion;
+        return BackgroundTable[Roll2D6()];
     }
-
-    function getColor(): string {
-        let roll: number = d66();
-        let color: string;
-        while (color == null) {
-            let id: string = <string>roll.toString();
-            color = tableColors[id];
-            if (color == null)
-                roll -= 1;
-        }
-        return color;
-    }
-
-    function getMotivation(): string {
-        let roll: number = d66();
-        let motivation: string;
-        while (motivation == null) {
-            let id: string = <string>roll.toString();
-            motivation = tableMotivation[id];
-            if (motivation == null)
-                roll -= 1;
-        }
-        return motivation;
-    }
-
-    function d66(): number {
+    function RollD66(): number {
         return Math.floor((Math.random() * 56) + 11);
     }
 
-    function d6(): number {
+    function RollD6(): number {
         return Math.floor((Math.random() * 6) + 1);
     }
-
-    let athletics: number = getAttribute();
-    let brains: number = getAttribute();
-    let charm: number = getAttribute();
-    let moxie: number = getAttribute();
-    let weird: number = getAttribute();
-    let stresslimit: number = moxie * 5;
-
-    let trait1: Trait = getTrait();
-    let trait2: Trait = getTrait();
-    while (trait2 == trait1) {
-        trait2 = getTrait();
+    function Roll2D6(): number {
+        return (RollD6() + RollD6());
     }
+    function Roll1D2(): number {
+        return Math.floor((Math.random() * 2) + 1);
+    }
+    let race: Race = getRace();
+    let raceBackground: Background = getRaceBackground();
 
-    let hobby: string = getHobby();
-    let motivation: string =  getMotivation();
-    let explosion: string =  getExplosion();
-    let eyes: string = getColor();
-    let hair: string = getColor();
-
-    document.querySelector("#athletics").textContent = "Athletics: " + athletics.toString();
-    document.querySelector("#brains").textContent = "Brains: " + brains.toString();
-    document.querySelector("#charm").textContent = "Charm: " + charm.toString();
-    document.querySelector("#moxie").textContent = "Moxie: " + moxie.toString();
-    document.querySelector("#weird").textContent = "Weird: " + weird.toString();
-    document.querySelector("#stresslimit").textContent = "Stress Limit: " + stresslimit.toString();
-
-    document.querySelector("#traits").textContent = "Special Quality: " + trait1.name + ", " + trait2.name;
-    document.querySelector("#hobby").textContent = "Hobby: " + hobby;
-    document.querySelector("#motivation").textContent = "Character Motivation : " + motivation;
-    document.querySelector("#explosion").textContent = "Stress Explosion: " + explosion;
-    document.querySelector("#hair").textContent = "Hair Color: " + hair;
-    document.querySelector("#eyes").textContent = "Eye Color: " + eyes;
-
-    document.querySelector("#description").textContent = trait1.text + " " + trait2.text;
-
-
-
+    document.querySelector("#athletics").textContent = "Race: " + race.name;
 }
