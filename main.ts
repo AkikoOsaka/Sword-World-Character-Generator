@@ -37,6 +37,12 @@ namespace SwordWorld {
         backgroundTables: BackgroundTables;
         language: string;
         classRestriction: string;
+        statA: string;
+        statB: string;
+        statC: string;
+        statD: string;
+        statE: string;
+        statF: string;
     }  
     export interface Weapon {
         name: string,

@@ -270,7 +270,6 @@ namespace SwordWorld {
             exp: 2000,
         },
     };
-    //Bookmark
     export let BackgroundUpdatedElf: BackgroundTable = {
         2: {
             name: "Bodybuilder",
@@ -991,6 +990,7 @@ namespace SwordWorld {
             exp: 2000,
         },
     };
+    //Bookmark
     export let BackgroundUpdatedNightmare: BackgroundTable = {
         2: {
             name: "Bodybuilder",

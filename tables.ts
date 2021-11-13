@@ -55,6 +55,12 @@ namespace SwordWorld {
         backgroundTables: HumanBackgrounds,
         language: "Humans can speak, read and write Trade Common and a Regional Dialect.",
         classRestriction: "None",
+        statA: "2d",
+        statB: "2d",
+        statC: "2d",
+        statD: "2d",
+        statE: "2d",
+        statF: "2d",
     };
     export let Elf : Race = {
         name: "Elf",
@@ -71,6 +77,12 @@ namespace SwordWorld {
         backgroundTables: ElfBackgrounds,
         language: "Elves can speak, read and write Elvish and Trade Common.",
         classRestriction: "None",
+        statA: "2d",
+        statB: "2d",
+        statC: "1d",
+        statD: "2d",
+        statE: "2d",
+        statF: "2d",
     };
     export let Dwarf : Race = {
         name: "Dwarf",
@@ -87,6 +99,12 @@ namespace SwordWorld {
         backgroundTables: DwarfBackgrounds,
         language: "Dwarves can speak, read and write Dwarven and Trade Common.",
         classRestriction: "None",
+        statA: "2d+6",
+        statB: "1d",
+        statC: "2d",
+        statD: "2d",
+        statE: "1d",
+        statF: "2d+6",
     };
     export let Tabbit : Race = {
         name: "Tabbit",
@@ -96,9 +114,15 @@ namespace SwordWorld {
                 text: "The ability to sense danger. You may make Danger Sense checks using your Adventurer Level instead of any Scout or Ranger levels. ",
             },
         },
-        backgroundTables: ElfBackgrounds,
+        backgroundTables: TabbitBackgrounds,
         language: "Tabbits can read Ancient Celestial, and can speak, read and write Trade Common.",
         classRestriction: "Priest",
+        statA: "1d",
+        statB: "1d",
+        statC: "1d",
+        statD: "2d",
+        statE: "2d+6",
+        statF: "2d",
     };
     export let Runefolk : Race = {
         name: "Runefolk",
@@ -115,6 +139,12 @@ namespace SwordWorld {
         backgroundTables: RunefolkBackgrounds,
         language: "Runefolk can speak, read and write Magitech and Trade Common.",
         classRestriction: "Fairy Tamer, Priest ",
+        statA: "2d",
+        statB: "1d",
+        statC: "2d",
+        statD: "2d",
+        statE: "2d",
+        statF: "1d",
     };
     export let Nightmare : Race = {
         name: "Nightmare",
@@ -135,6 +165,12 @@ namespace SwordWorld {
         backgroundTables: NightmareBackgrounds,
         language: "Nightmare PCs have the same starting languages as the race they are born to.",
         classRestriction: "None",
+        statA: "2d",
+        statB: "2d",
+        statC: "1d",
+        statD: "1d",
+        statE: "2d",
+        statF: "1d",
     };
     export let Shadow : Race = {
         name: "Shadow",
@@ -151,6 +187,12 @@ namespace SwordWorld {
         backgroundTables: ShadowBackgrounds,
         language: "Shadows can speak, read and write Shadow and Trade Common.",
         classRestriction: "None",
+        statA: "1d",
+        statB: "1d",
+        statC: "2d",
+        statD: "2d",
+        statE: "2d",
+        statF: "2d",
     };
     export let Lildraken : Race = {
         name: "Lildraken",
@@ -171,6 +213,12 @@ namespace SwordWorld {
         backgroundTables: LildrakenBackgrounds,
         language: "Lildraken can speak, read and write Dragonic and Trade Common.",
         classRestriction: "None",
+        statA: "1d",
+        statB: "2d",
+        statC: "2d",
+        statD: "2d+6",
+        statE: "1d",
+        statF: "2d",
     };
     export let Grassrunner : Race = {
         name: "Grassrunner",
@@ -187,6 +235,12 @@ namespace SwordWorld {
         backgroundTables: GrassrunnerBackgrounds,
         language: "Grassrunners can speak, read and write Grassrunner and Trade Common.",
         classRestriction: "None",
+        statA: "2d",
+        statB: "2d",
+        statC: "1d",
+        statD: "2d+6",
+        statE: "1d",
+        statF: "2d+6",
     };
     export let Newman : Race = {
         name: "Newman",
@@ -203,6 +257,12 @@ namespace SwordWorld {
         backgroundTables: NewmanBackgrounds,
         language: "Newmen can speak, read and write Arcana and Trade Common.",
         classRestriction: "None",
+        statA: "2d",
+        statB: "1d",
+        statC: "2d",
+        statD: "1d",
+        statE: "1d",
+        statF: "1d",
     };
     export let Valkyrie : Race = {
         name: "Valkyrie",
@@ -219,6 +279,12 @@ namespace SwordWorld {
         backgroundTables: ValkyrieBackgrounds,
         language: "Valkyries can speak, read and write Trade Common and a Regional Dialect.",
         classRestriction: "None",
+        statA: "2d",
+        statB: "1d",
+        statC: "2d",
+        statD: "2d",
+        statE: "1d",
+        statF: "1d+6",
     };
 
     export let Races: Table = {
