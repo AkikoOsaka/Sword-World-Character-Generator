@@ -1,4 +1,4 @@
-namespace SwordWorld {
+namespace SwordWorld {    
     let raceMax:number = 11;
 
     export interface Table {
@@ -24,6 +24,7 @@ namespace SwordWorld {
     }
     export interface BackgroundTable {
         [id: number]: Background;
+        name: string;
     }
     export interface BackgroundTables {
         [id: number]: BackgroundTable;
@@ -218,13 +219,59 @@ namespace SwordWorld {
     function Roll1D2(): number {
         return Math.floor((Math.random() * 2) + 1);
     }
-    race = getRace();
-    raceBackground = getRaceBackground();
-    getAttributes();
-    getModifiers();
-
-    document.querySelector("#Race").textContent = "Race: " + race.name;
-    document.querySelector("#Background").textContent = "Background: " + raceBackground.name;
+    function rollCharacter ():void {
+        race = getRace();
+        raceBackground = getRaceBackground();
+        getAttributes();
+        getModifiers();
+    }
+    function rollBackground():void {
+        raceBackground = getRaceBackground();
+        getAttributes();
+        getModifiers();  
+    }
+    function rollStats():void {
+        getAttributes();
+        getModifiers();  
+    }
+    function init() {
+        rollCharacter();
+        let RaceSelector: HTMLSelectElement = document.querySelector("#Race");
+        for (let raceID in Races) {
+            let raceOption:HTMLOptionElement = document.createElement("option");
+            raceOption.value = raceID;
+            raceOption.textContent = Races[raceID].name;
+            RaceSelector.add(raceOption);
+        }
+        let BackgroundSelector: HTMLSelectElement = document.querySelector("#Background");
+        let backgroundTables: BackgroundTables = race.backgroundTables;
+        for (let bgtableID in backgroundTables) {        
+            let raceBGs:HTMLOptGroupElement = document.createElement("optgroup");
+            raceBGs.label = backgroundTables[bgtableID].name;
+            raceBGs.nodeValue = bgtableID;
+            BackgroundSelector.add(raceBGs);
+            let bgTable:BackgroundTable = backgroundTables[bgtableID]
+            let prevBGName:string = "";
+            for (let bgID in bgTable){
+                console.log(bgID);
+                if(bgID != "name") {
+                    if(prevBGName != bgTable[bgID].name) {
+                        let bgOption:HTMLOptionElement = document.createElement("option");
+                        bgOption.value = bgID;
+                        bgOption.textContent = bgTable[bgID].name;
+                        BackgroundSelector.add(bgOption);
+                        prevBGName = bgTable[bgID].name;
+                    }
+                }
+            }
+        }
+    }
+    // window.onload = () => {
+    //     init();
+    // }
+    init();
+    let RaceSelector: HTMLSelectElement = document.querySelector("#Race");
+    let BackgroundSelector: HTMLSelectElement = document.querySelector("#Background");
     document.querySelector("#Skill").textContent = "Skill: " + raceBackground.skill;
     document.querySelector("#Body").textContent = "Body: " + raceBackground.body;
     document.querySelector("#Mind").textContent = "Mind: " + raceBackground.mind;
@@ -247,3 +294,4 @@ namespace SwordWorld {
     document.querySelector("#IntMod").textContent = "Intelligence Modifier: " + intMod;
     document.querySelector("#SpiMod").textContent = "Spirit Modifier: " + spiMod;
 }
+

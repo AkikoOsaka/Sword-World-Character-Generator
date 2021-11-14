@@ -1,6 +1,7 @@
 namespace SwordWorld {
 
     export let BackgroundHuman: BackgroundTable = {
+        name: "Human Backgrounds",
         2: {
             name: "Magitech",
             startingClass: "Artificer",
@@ -91,6 +92,7 @@ namespace SwordWorld {
         },
     };
     export let BackgroundUpdatedHuman: BackgroundTable = {
+        name: "Updated Human Backgrounds",
         2: {
             name: "Spy",
             startingClass: "Scout",
@@ -181,6 +183,7 @@ namespace SwordWorld {
         },
     };
     export let BackgroundElf: BackgroundTable = {
+        name: "Elf Backgrounds",
         2: {
             name: "Warrior",
             startingClass: "Fencer",
@@ -271,6 +274,7 @@ namespace SwordWorld {
         },
     };
     export let BackgroundUpdatedElf: BackgroundTable = {
+        name: "Updated Elf Backgrounds",
         2: {
             name: "Bodybuilder",
             startingClass: "Enhancer",
@@ -361,6 +365,7 @@ namespace SwordWorld {
         },
     };
     export let BackgroundDwarf: BackgroundTable = {
+        name: "Dwarf Backgrounds",
         2: {
             name: "Archer",
             startingClass: "Marksman",
@@ -451,6 +456,7 @@ namespace SwordWorld {
         },
     };
     export let BackgroundUpdatedDwarf: BackgroundTable = {
+        name: "Updated Dwarf Backgrounds",
         2: {
             name: "Bodybuilder",
             startingClass: "Enhancer",
@@ -541,6 +547,7 @@ namespace SwordWorld {
         },
     };
     export let BackgroundTabbit: BackgroundTable = {
+        name: "Tabbit Backgrounds",
         2: {
             name: "Feytouched",
             startingClass: "Fairy Tamer",
@@ -631,6 +638,7 @@ namespace SwordWorld {
         },
     };
     export let BackgroundUpdatedTabbit: BackgroundTable = {
+        name: "Updated Tabbit Backgrounds",
         2: {
             name: "Minstrel",
             startingClass: "Bard",
@@ -721,6 +729,7 @@ namespace SwordWorld {
         },
     };
     export let BackgroundRunefolk: BackgroundTable = {
+        name: "Runefolk Backgrounds",
         2: {
             name: "Scholar",
             startingClass: "Sage",
@@ -811,6 +820,7 @@ namespace SwordWorld {
         },
     };
     export let BackgroundUpdatedRunefolk: BackgroundTable = {
+        name: "Updated Runefolk Backgrounds",
         2: {
             name: "Hobbyist",
             startingClass: "Sage or Bard",
@@ -901,6 +911,7 @@ namespace SwordWorld {
         },
     };
     export let BackgroundNightmare: BackgroundTable = {
+        name: "Nightmare Backgrounds",
         2: {
             name: "Wizard",
             startingClass: "Sorcerer",
@@ -992,6 +1003,7 @@ namespace SwordWorld {
     };
     //Bookmark
     export let BackgroundUpdatedNightmare: BackgroundTable = {
+        name: "Updated Nightmare Backgrounds",
         2: {
             name: "Manipulator",
             startingClass: "Conjurer",
@@ -1082,6 +1094,7 @@ namespace SwordWorld {
         },
     };
     export let BackgroundShadow: BackgroundTable = {
+        name: "Shadow Backgrounds",
         2: {
             name: "Hermit",
             startingClass: "Ranger",
@@ -1172,6 +1185,7 @@ namespace SwordWorld {
         },
     };
     export let BackgroundUpdatedShadow: BackgroundTable = {
+        name: "Updated Shadow Backgrounds",
         2: {
             name: "Magitech",
             startingClass: "Artificer",
@@ -1262,6 +1276,7 @@ namespace SwordWorld {
         },
     };
     export let BackgroundLildraken: BackgroundTable = {
+        name: "Lildraken Backgrounds",
         2: {
             name: "Hunter",
             startingClass: "Ranger",
@@ -1352,6 +1367,7 @@ namespace SwordWorld {
         },
     };
     export let BackgroundGrassrunner: BackgroundTable = {
+        name: "Grassrunner Backgrounds",
         2: {
             name: "Warrior",
             startingClass: "Fencer",
@@ -1442,6 +1458,7 @@ namespace SwordWorld {
         },
     };
     export let BackgroundNewman: BackgroundTable = {
+        name: "Newman Backgrounds",
         2: {
             name: "Warrior",
             startingClass: "Fencer",
@@ -1532,6 +1549,7 @@ namespace SwordWorld {
         },
     };
     export let BackgroundValkyrie: BackgroundTable = {
+        name: "Valkyrie Backgrounds",
         2: {
             name: "Warrior",
             startingClass: "Fencer",

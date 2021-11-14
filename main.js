@@ -114,12 +114,59 @@ var SwordWorld;
     function Roll1D2() {
         return Math.floor((Math.random() * 2) + 1);
     }
-    race = getRace();
-    raceBackground = getRaceBackground();
-    getAttributes();
-    getModifiers();
-    document.querySelector("#Race").textContent = "Race: " + race.name;
-    document.querySelector("#Background").textContent = "Background: " + raceBackground.name;
+    function rollCharacter() {
+        race = getRace();
+        raceBackground = getRaceBackground();
+        getAttributes();
+        getModifiers();
+    }
+    function rollBackground() {
+        raceBackground = getRaceBackground();
+        getAttributes();
+        getModifiers();
+    }
+    function rollStats() {
+        getAttributes();
+        getModifiers();
+    }
+    function init() {
+        rollCharacter();
+        let RaceSelector = document.querySelector("#Race");
+        for (let raceID in SwordWorld.Races) {
+            let raceOption = document.createElement("option");
+            raceOption.value = raceID;
+            raceOption.textContent = SwordWorld.Races[raceID].name;
+            RaceSelector.add(raceOption);
+        }
+        let BackgroundSelector = document.querySelector("#Background");
+        let backgroundTables = race.backgroundTables;
+        for (let bgtableID in backgroundTables) {
+            let raceBGs = document.createElement("optgroup");
+            raceBGs.label = backgroundTables[bgtableID].name;
+            raceBGs.nodeValue = bgtableID;
+            BackgroundSelector.add(raceBGs);
+            let bgTable = backgroundTables[bgtableID];
+            let prevBGName = "";
+            for (let bgID in bgTable) {
+                console.log(bgID);
+                if (bgID != "name") {
+                    if (prevBGName != bgTable[bgID].name) {
+                        let bgOption = document.createElement("option");
+                        bgOption.value = bgID;
+                        bgOption.textContent = bgTable[bgID].name;
+                        BackgroundSelector.add(bgOption);
+                        prevBGName = bgTable[bgID].name;
+                    }
+                }
+            }
+        }
+    }
+    // window.onload = () => {
+    //     init();
+    // }
+    init();
+    let RaceSelector = document.querySelector("#Race");
+    let BackgroundSelector = document.querySelector("#Background");
     document.querySelector("#Skill").textContent = "Skill: " + raceBackground.skill;
     document.querySelector("#Body").textContent = "Body: " + raceBackground.body;
     document.querySelector("#Mind").textContent = "Mind: " + raceBackground.mind;
