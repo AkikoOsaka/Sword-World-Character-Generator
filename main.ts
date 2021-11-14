@@ -105,6 +105,7 @@ namespace SwordWorld {
     }
     //Character Sheet Stuff
     let race: Race;
+    let raceBackgroundTable: BackgroundTable;
     let raceBackground: Background;
     let statA: number;
     let dexterity: number;
@@ -159,7 +160,7 @@ namespace SwordWorld {
     function getRaceBackground():Background {
         let backgroundTables: BackgroundTables = race["backgroundTables"];
         let BackgroundTable: BackgroundTable = backgroundTables[Roll1D2()];
-
+        raceBackgroundTable = BackgroundTable;
         return BackgroundTable[Roll2D6()];
     }
 
@@ -219,6 +220,9 @@ namespace SwordWorld {
     function Roll1D2(): number {
         return Math.floor((Math.random() * 2) + 1);
     }
+    function initCharacter ():void {
+        rollCharacter();
+    }
     function rollCharacter ():void {
         race = getRace();
         raceBackground = getRaceBackground();
@@ -234,64 +238,92 @@ namespace SwordWorld {
         getAttributes();
         getModifiers();  
     }
-    function init() {
-        rollCharacter();
+    function updateUI() {
         let RaceSelector: HTMLSelectElement = document.querySelector("#Race");
+        let RaceIDNumber:number;
+        let BackgroundID:string;
+        let BackgroundIDNumber:number;
+        RaceSelector.textContent = "";
         for (let raceID in Races) {
+
             let raceOption:HTMLOptionElement = document.createElement("option");
             raceOption.value = raceID;
             raceOption.textContent = Races[raceID].name;
+            if(race.name == Races[raceID].name) {
+                raceOption.selected = true;
+            }
+            if(race.name == Races[raceID].name) {
+                RaceIDNumber = <any>raceID - 1;
+            }
             RaceSelector.add(raceOption);
         }
+        RaceSelector.selectedIndex = RaceIDNumber;
         let BackgroundSelector: HTMLSelectElement = document.querySelector("#Background");
+        BackgroundSelector.textContent = "";
         let backgroundTables: BackgroundTables = race.backgroundTables;
-        for (let bgtableID in backgroundTables) {        
-            let raceBGs:HTMLOptGroupElement = document.createElement("optgroup");
-            raceBGs.label = backgroundTables[bgtableID].name;
-            raceBGs.nodeValue = bgtableID;
-            BackgroundSelector.add(raceBGs);
-            let bgTable:BackgroundTable = backgroundTables[bgtableID]
-            let prevBGName:string = "";
-            for (let bgID in bgTable){
-                console.log(bgID);
-                if(bgID != "name") {
-                    if(prevBGName != bgTable[bgID].name) {
-                        let bgOption:HTMLOptionElement = document.createElement("option");
-                        bgOption.value = bgID;
-                        bgOption.textContent = bgTable[bgID].name;
-                        BackgroundSelector.add(bgOption);
-                        prevBGName = bgTable[bgID].name;
+        let prevBGTableName:string = "";
+            for (let bgtableID in backgroundTables) {     
+                if(prevBGTableName != backgroundTables[bgtableID].name) {  
+                    let raceBGs:HTMLOptGroupElement = document.createElement("optgroup");
+                    raceBGs.label = backgroundTables[bgtableID].name;
+                    
+                    let bgTable:BackgroundTable = backgroundTables[bgtableID]
+                    let prevBGName:string = "";
+                    for (let bgID in bgTable){
+                        if(bgID != "name") {
+                            if(prevBGName != bgTable[bgID].name) {
+                                let bgOption:HTMLOptionElement = document.createElement("option");
+                                bgOption.value = "Option_"+bgtableID+"_"+bgID;
+                                bgOption.textContent = bgTable[bgID].name;
+                                bgOption.id = bgOption.value;
+                                raceBGs.appendChild(bgOption);
+                                prevBGName = bgTable[bgID].name;
+                                if(bgTable.name == raceBackgroundTable.name) {
+                                    if(bgTable[bgID].name == raceBackground.name) {
+                                        console.log(BackgroundSelector);
+                                        BackgroundID = bgOption.value;
+                                        console.log(BackgroundID);
+                                    }
+                                }
+                            }
+                        }
                     }
+                    BackgroundSelector.add(raceBGs);
+                    prevBGTableName = backgroundTables[bgtableID].name;
                 }
             }
-        }
+        let selectionQuery:string = "#" + BackgroundID;
+        let selectedBackground:HTMLOptionElement = document.querySelector(selectionQuery);
+        BackgroundSelector.selectedIndex = selectedBackground.index;
+        document.querySelector("#Skill").textContent = "Skill: " + raceBackground.skill;
+        document.querySelector("#Body").textContent = "Body: " + raceBackground.body;
+        document.querySelector("#Mind").textContent = "Mind: " + raceBackground.mind;
+        document.querySelector("#StatA").textContent = "A: " + statA;
+        document.querySelector("#StatB").textContent = "B: " + statB;
+        document.querySelector("#StatC").textContent = "C: " + statC;
+        document.querySelector("#StatD").textContent = "D: " + statD;
+        document.querySelector("#StatE").textContent = "E: " + statE;
+        document.querySelector("#StatF").textContent = "F: " + statF;
+        document.querySelector("#Dex").textContent = "Dexterity: " + dexterity;
+        document.querySelector("#Agi").textContent = "Agility: " + agility;
+        document.querySelector("#Str").textContent = "Strength: " + strength;
+        document.querySelector("#Vit").textContent = "Vitality: " + vitality;
+        document.querySelector("#Int").textContent = "Intelligence: " + intelligence;
+        document.querySelector("#Spi").textContent = "Spirit: " + spirit;
+        document.querySelector("#DexMod").textContent = "Dexterity Modifier: " + dexMod;
+        document.querySelector("#AgiMod").textContent = "Agility Modifier: " + agiMod;
+        document.querySelector("#StrMod").textContent = "Strength Modifier: " + strMod;
+        document.querySelector("#VitMod").textContent = "Vitality Modifier: " + vitMod;
+        document.querySelector("#IntMod").textContent = "Intelligence Modifier: " + intMod;
+        document.querySelector("#SpiMod").textContent = "Spirit Modifier: " + spiMod;
     }
-    // window.onload = () => {
-    //     init();
-    // }
-    init();
-    let RaceSelector: HTMLSelectElement = document.querySelector("#Race");
-    let BackgroundSelector: HTMLSelectElement = document.querySelector("#Background");
-    document.querySelector("#Skill").textContent = "Skill: " + raceBackground.skill;
-    document.querySelector("#Body").textContent = "Body: " + raceBackground.body;
-    document.querySelector("#Mind").textContent = "Mind: " + raceBackground.mind;
-    document.querySelector("#StatA").textContent = "A: " + statA;
-    document.querySelector("#StatB").textContent = "B: " + statB;
-    document.querySelector("#StatC").textContent = "C: " + statC;
-    document.querySelector("#StatD").textContent = "D: " + statD;
-    document.querySelector("#StatE").textContent = "E: " + statE;
-    document.querySelector("#StatF").textContent = "F: " + statF;
-    document.querySelector("#Dex").textContent = "Dexterity: " + dexterity;
-    document.querySelector("#Agi").textContent = "Agility: " + agility;
-    document.querySelector("#Str").textContent = "Strength: " + strength;
-    document.querySelector("#Vit").textContent = "Vitality: " + vitality;
-    document.querySelector("#Int").textContent = "Intelligence: " + intelligence;
-    document.querySelector("#Spi").textContent = "Spirit: " + spirit;
-    document.querySelector("#DexMod").textContent = "Dexterity Modifier: " + dexMod;
-    document.querySelector("#AgiMod").textContent = "Agility Modifier: " + agiMod;
-    document.querySelector("#StrMod").textContent = "Strength Modifier: " + strMod;
-    document.querySelector("#VitMod").textContent = "Vitality Modifier: " + vitMod;
-    document.querySelector("#IntMod").textContent = "Intelligence Modifier: " + intMod;
-    document.querySelector("#SpiMod").textContent = "Spirit Modifier: " + spiMod;
+    function init() {
+        rollCharacter();
+        updateUI();
+    }
+    window.onload = () => {
+        init();
+    }
+
 }
 

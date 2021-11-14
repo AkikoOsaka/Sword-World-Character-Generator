@@ -3,6 +3,7 @@ var SwordWorld;
     let raceMax = 11;
     //Character Sheet Stuff
     let race;
+    let raceBackgroundTable;
     let raceBackground;
     let statA;
     let dexterity;
@@ -57,6 +58,7 @@ var SwordWorld;
     function getRaceBackground() {
         let backgroundTables = race["backgroundTables"];
         let BackgroundTable = backgroundTables[Roll1D2()];
+        raceBackgroundTable = BackgroundTable;
         return BackgroundTable[Roll2D6()];
     }
     function getAttribute(AbilityScore) {
@@ -114,6 +116,9 @@ var SwordWorld;
     function Roll1D2() {
         return Math.floor((Math.random() * 2) + 1);
     }
+    function initCharacter() {
+        rollCharacter();
+    }
     function rollCharacter() {
         race = getRace();
         raceBackground = getRaceBackground();
@@ -129,64 +134,89 @@ var SwordWorld;
         getAttributes();
         getModifiers();
     }
-    function init() {
-        rollCharacter();
+    function updateUI() {
         let RaceSelector = document.querySelector("#Race");
+        let RaceIDNumber;
+        let BackgroundID;
+        let BackgroundIDNumber;
+        RaceSelector.textContent = "";
         for (let raceID in SwordWorld.Races) {
             let raceOption = document.createElement("option");
             raceOption.value = raceID;
             raceOption.textContent = SwordWorld.Races[raceID].name;
+            if (race.name == SwordWorld.Races[raceID].name) {
+                raceOption.selected = true;
+            }
+            if (race.name == SwordWorld.Races[raceID].name) {
+                RaceIDNumber = raceID - 1;
+            }
             RaceSelector.add(raceOption);
         }
+        RaceSelector.selectedIndex = RaceIDNumber;
         let BackgroundSelector = document.querySelector("#Background");
+        BackgroundSelector.textContent = "";
         let backgroundTables = race.backgroundTables;
+        let prevBGTableName = "";
         for (let bgtableID in backgroundTables) {
-            let raceBGs = document.createElement("optgroup");
-            raceBGs.label = backgroundTables[bgtableID].name;
-            raceBGs.nodeValue = bgtableID;
-            BackgroundSelector.add(raceBGs);
-            let bgTable = backgroundTables[bgtableID];
-            let prevBGName = "";
-            for (let bgID in bgTable) {
-                console.log(bgID);
-                if (bgID != "name") {
-                    if (prevBGName != bgTable[bgID].name) {
-                        let bgOption = document.createElement("option");
-                        bgOption.value = bgID;
-                        bgOption.textContent = bgTable[bgID].name;
-                        BackgroundSelector.add(bgOption);
-                        prevBGName = bgTable[bgID].name;
+            if (prevBGTableName != backgroundTables[bgtableID].name) {
+                let raceBGs = document.createElement("optgroup");
+                raceBGs.label = backgroundTables[bgtableID].name;
+                let bgTable = backgroundTables[bgtableID];
+                let prevBGName = "";
+                for (let bgID in bgTable) {
+                    if (bgID != "name") {
+                        if (prevBGName != bgTable[bgID].name) {
+                            let bgOption = document.createElement("option");
+                            bgOption.value = "Option_" + bgtableID + "_" + bgID;
+                            bgOption.textContent = bgTable[bgID].name;
+                            bgOption.id = bgOption.value;
+                            raceBGs.appendChild(bgOption);
+                            prevBGName = bgTable[bgID].name;
+                            if (bgTable.name == raceBackgroundTable.name) {
+                                if (bgTable[bgID].name == raceBackground.name) {
+                                    console.log(BackgroundSelector);
+                                    BackgroundID = bgOption.value;
+                                    console.log(BackgroundID);
+                                }
+                            }
+                        }
                     }
                 }
+                BackgroundSelector.add(raceBGs);
+                prevBGTableName = backgroundTables[bgtableID].name;
             }
         }
+        let selectionQuery = "#" + BackgroundID;
+        let selectedBackground = document.querySelector(selectionQuery);
+        BackgroundSelector.selectedIndex = selectedBackground.index;
+        document.querySelector("#Skill").textContent = "Skill: " + raceBackground.skill;
+        document.querySelector("#Body").textContent = "Body: " + raceBackground.body;
+        document.querySelector("#Mind").textContent = "Mind: " + raceBackground.mind;
+        document.querySelector("#StatA").textContent = "A: " + statA;
+        document.querySelector("#StatB").textContent = "B: " + statB;
+        document.querySelector("#StatC").textContent = "C: " + statC;
+        document.querySelector("#StatD").textContent = "D: " + statD;
+        document.querySelector("#StatE").textContent = "E: " + statE;
+        document.querySelector("#StatF").textContent = "F: " + statF;
+        document.querySelector("#Dex").textContent = "Dexterity: " + dexterity;
+        document.querySelector("#Agi").textContent = "Agility: " + agility;
+        document.querySelector("#Str").textContent = "Strength: " + strength;
+        document.querySelector("#Vit").textContent = "Vitality: " + vitality;
+        document.querySelector("#Int").textContent = "Intelligence: " + intelligence;
+        document.querySelector("#Spi").textContent = "Spirit: " + spirit;
+        document.querySelector("#DexMod").textContent = "Dexterity Modifier: " + dexMod;
+        document.querySelector("#AgiMod").textContent = "Agility Modifier: " + agiMod;
+        document.querySelector("#StrMod").textContent = "Strength Modifier: " + strMod;
+        document.querySelector("#VitMod").textContent = "Vitality Modifier: " + vitMod;
+        document.querySelector("#IntMod").textContent = "Intelligence Modifier: " + intMod;
+        document.querySelector("#SpiMod").textContent = "Spirit Modifier: " + spiMod;
     }
-    // window.onload = () => {
-    //     init();
-    // }
-    init();
-    let RaceSelector = document.querySelector("#Race");
-    let BackgroundSelector = document.querySelector("#Background");
-    document.querySelector("#Skill").textContent = "Skill: " + raceBackground.skill;
-    document.querySelector("#Body").textContent = "Body: " + raceBackground.body;
-    document.querySelector("#Mind").textContent = "Mind: " + raceBackground.mind;
-    document.querySelector("#StatA").textContent = "A: " + statA;
-    document.querySelector("#StatB").textContent = "B: " + statB;
-    document.querySelector("#StatC").textContent = "C: " + statC;
-    document.querySelector("#StatD").textContent = "D: " + statD;
-    document.querySelector("#StatE").textContent = "E: " + statE;
-    document.querySelector("#StatF").textContent = "F: " + statF;
-    document.querySelector("#Dex").textContent = "Dexterity: " + dexterity;
-    document.querySelector("#Agi").textContent = "Agility: " + agility;
-    document.querySelector("#Str").textContent = "Strength: " + strength;
-    document.querySelector("#Vit").textContent = "Vitality: " + vitality;
-    document.querySelector("#Int").textContent = "Intelligence: " + intelligence;
-    document.querySelector("#Spi").textContent = "Spirit: " + spirit;
-    document.querySelector("#DexMod").textContent = "Dexterity Modifier: " + dexMod;
-    document.querySelector("#AgiMod").textContent = "Agility Modifier: " + agiMod;
-    document.querySelector("#StrMod").textContent = "Strength Modifier: " + strMod;
-    document.querySelector("#VitMod").textContent = "Vitality Modifier: " + vitMod;
-    document.querySelector("#IntMod").textContent = "Intelligence Modifier: " + intMod;
-    document.querySelector("#SpiMod").textContent = "Spirit Modifier: " + spiMod;
+    function init() {
+        rollCharacter();
+        updateUI();
+    }
+    window.onload = () => {
+        init();
+    };
 })(SwordWorld || (SwordWorld = {}));
 //# sourceMappingURL=main.js.map
